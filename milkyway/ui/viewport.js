@@ -14,7 +14,7 @@
  * @constructor
  * @return Viewport
  */
-MilkywayUI.Viewport = new Class({
+MilkywayUI.viewport = new Class({
     /**
      * The bars what could be shown on the viewport. Basically it has a bar
      * for communication, for confirm, alert and load messages, and another
@@ -26,7 +26,7 @@ MilkywayUI.Viewport = new Class({
      * The base CSS class to apply to this panel's element (defaults to 'x-main').
      * @type String
      */
-    base_class:             'x-main',
+    base_class:             'ui-main',
     /**
      * The HTML element, where Tui will render the its viewport.
      * @type Object
@@ -48,7 +48,7 @@ MilkywayUI.Viewport = new Class({
      */
     html_el:                null,
     /**
-     * The HTML element's type to generate Tui's interface.
+     * The HTML element's type to generate UI's interface.
      * @type String
      */
     html_el_tag:            'div',
@@ -69,48 +69,51 @@ MilkywayUI.Viewport = new Class({
      * @param {Object} options The startup options of the object.
      */
     initialize: function() {
-        var options = ($type(arguments[0]) == 'object') ? arguments[0] : {};
+        var options = (typeOf(arguments[0]) === 'object') ? arguments[0] : {};
         //- bars
-        if ($type(options.bars) == 'array') this.bars = options.bars;
-        else if ($type(options.bars) == 'object') this.bars.push(options.bars);
-        else this.bars = [/*{
-             'type':                         'dialog',
-             'vertical_align':       'bottom'
-             },{
-             'type':                         'status',
-             'height':                       20,
-             'vertical_align':       'bottom'
-             },*/
-                new MilkywayUI.EventBar({
-                    'height':               20,
-                    'vertical_align':       'bottom'
-                })];
+        if (typeOf(options.bars) === 'array') this.bars = options.bars;
+        else if (typeOf(options.bars) === 'object') this.bars.push(options.bars);
+//        else this.bars = [/*{
+//             'type':                         'dialog',
+//             'vertical_align':       'bottom'
+//             },{
+//             'type':                         'status',
+//             'height':                       20,
+//             'vertical_align':       'bottom'
+//             },*/
+//                new MilkywayUI.EventBar({
+//                    'height':               20,
+//                    'vertical_align':       'bottom'
+//                })];
         //- screens
-        if ($type(options.screens) == 'array') this.screens = options.screens;
-        else if ($type(options.screens) == 'object') this.screens.push(options.screens);
+        if (typeOf(options.screens) === 'array') {
+            this.screens = options.screens;
+        } else if (typeOf(options.screens) === 'object') {
+            this.screens.push(options.screens);
+        }
         //- id
-        this.id = ($chk(options.id)) ? options.id : id.get();
+        this.id = (options.id) ? options.id : id.get();
         //- container_el
         if (!this.container_el) this.container_el = $(document.body);
         //- height - dependent of container_el
-        this.height = ($chk(options.height)) ? options.height : parseInt(this.container_el.getStyle('height'));
+        this.height = (typeOf(options.height) === 'number') ? options.height : parseInt(this.container_el.getStyle('height'));
         //- html_el - dependent of container_el
-        if (this.container_el.hasChild(this.id)) this.html_el = $(this.id);
-        else this.html_el = new Element(this.html_el_tag, {
-            'id':           this.id,
-            'class':        this.base_class,
-            'styles':       {
-                'height':       this.container_el.getStyle('height'),
-                'width':        this.container_el.getStyle('width')
-            }
-        });
-        MilkywayUI.addEventHandler('p', 'play', function() {
-//                      console.info('event handler defined in milkyway viewport');
-//                      console.log(arguments);
-            if ($('movie_test').paused == false) $('movie_test').pause();
-            else $('movie_test').play();
-
-        });
+//        if (this.container_el.hasChild(this.id)) this.html_el = $(this.id);
+//        else this.html_el = new Element(this.html_el_tag, {
+//            'id':           this.id,
+//            'class':        this.base_class,
+//            'styles':       {
+//                'height':       this.container_el.getStyle('height'),
+//                'width':        this.container_el.getStyle('width')
+//            }
+//        });
+//        MilkywayUI.addEventHandler('p', 'play', function() {
+////                      console.info('event handler defined in milkyway viewport');
+////                      console.log(arguments);
+//            if ($('movie_test').paused == false) $('movie_test').pause();
+//            else $('movie_test').play();
+//
+//        });
     },
 
     /**

@@ -14,7 +14,7 @@
  * @constructor
  * @return Screen
  */
-MilkywayUI.Screen = new Class({
+MilkywayUI.screen = new Class({
     auto_render:            false,
     /**
      * The base CSS class to apply to this panel's element (defaults to 'ui-screen').
@@ -50,9 +50,11 @@ MilkywayUI.Screen = new Class({
      * @param {Object} options Screen's properties to set up them.
      */
     initialize: function(options) {
+        console.log(' ***** Screnn initialize with parameters:');
+        console.log(options);
         var options = ($type(arguments[0]) === 'object') ? arguments[0] : {};
         //- auto_render
-        if ($type(options.auto_render) === 'boolean') this.auto_render = options.auto_render;
+        if (typeOf(options.auto_render) === 'boolean') this.auto_render = options.auto_render;
         //- id
         this.id = ($chk(options.id)) ? options.id : id.get();
         //- height
