@@ -17,6 +17,6 @@ MilkywayUI.application = new Class({
 
     render: function() {
         this.viewport.render();
-        this.getActiveScreen().render();
+//        this.getActiveScreen().render();
     }
 });

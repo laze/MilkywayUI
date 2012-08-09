@@ -7,8 +7,6 @@ MilkywayUI.defineApp({
     ]
 });
 
-console.log(MilkywayUI);
-
 //
 //{
 //    'id':'video_test',
