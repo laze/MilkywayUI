@@ -35,6 +35,9 @@
          * @return {void}
          */
         initialize: function() {
+            MilkywayUI.SYS_PATH = $('MilkywayUI').get('src').replace('milkyway/core.js', '');
+            MilkywayUI.APP_PATH = $('MilkywayApp').get('src').substr(0, $('MilkywayApp').get('src').lastIndexOf('/') + 1);
+
             /** Load basically necessary components.
              */
             MilkywayUI.require('milkyway.ui.viewport');
@@ -75,7 +78,7 @@
          */
         require: function(path, options) {
             if (typeOf(path) == 'string') {
-                Asset.javascript(path.replace(/\./gi, '/') + '.js', options);
+                Asset.javascript(MilkywayUI.SYS_PATH + path.replace(/\./gi, '/') + '.js', options);
             }
         },
 
