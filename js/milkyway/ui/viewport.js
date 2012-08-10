@@ -72,7 +72,7 @@ MilkywayUI.viewport = new Class({
         if (typeOf(options) === 'object') {
             /** Set up properties...
              */
-            this.setId(options.id);
+            this.setId(options.name);
             this.setHeight(options.height);
             this.setWidth(options.width);
             this.setContainer(options.container);
@@ -160,9 +160,9 @@ MilkywayUI.viewport = new Class({
      */
     setId: function(id) {
         if (typeOf(id) === 'string') {
-            this.id = id;
+            this.id = 'ui' + id.camelCase().replace(/\s/gi, '').hyphenate() + '-viewport';
         } else {
-            this.id = String.uniqueID();
+            this.id = 'ui-' + String.uniqueID() + '-viewport';
         }
     },
 

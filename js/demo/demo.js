@@ -1,5 +1,5 @@
 MilkywayUI.defineApp({
-    id: 'demo-viewport',
+    name: 'DemoApp',
     width: 1280,
     height: 720,
     screens: [
