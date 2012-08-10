@@ -41,6 +41,7 @@
             /** Load basically necessary components.
              */
             MilkywayUI.require('milkyway.ui.viewport');
+            MilkywayUI.require('milkyway.ui.bar');
             MilkywayUI.require('milkyway.ui.screen');
 
             /**
