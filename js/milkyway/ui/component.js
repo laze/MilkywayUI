@@ -47,6 +47,11 @@ MilkywayUI.component = new Class({
     parent_el: null,
 
     /**
+     * @type {Boolean} rendered Is the element rendered or not yet?
+     */
+    rendered: false,
+
+    /**
      * @type {Integer} width The width of the given component
      */
     width: 0,
@@ -92,6 +97,28 @@ MilkywayUI.component = new Class({
              * @todo
              * Generated component also should be updated - if its exists.
              */
+        }
+    },
+
+    /**
+     * Returns the HTML element's id.
+     * @return {String}
+     */
+    getId: function() {
+        return this.id;
+    },
+
+    /**
+     * Set id for the HTML element what will be generated. (After rendering, this method not works.)
+     * @param {String} id Optional. The id of the element, or if it's null, then a UID will be generated for the id.
+     */
+    setId: function(id) {
+        if (!this.rendered) {
+            if (typeOf(id) === 'string') {
+                this.id = id;
+            } else {
+                this.id = String.uniqueID();
+            }
         }
     },
 
