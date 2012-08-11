@@ -21,7 +21,7 @@ MilkywayUI.screen = new Class({
      * @type String
      */
     base_class:             'ui-screen',
-    container_el:           null,
+    parent_el:           null,
     /**
      * The height of the screen.
      * @type Integer
@@ -36,7 +36,7 @@ MilkywayUI.screen = new Class({
      * The HTML element's type to generate screen.
      * @type String
      */
-    html_el:                'div',
+    viewport_el:                'div',
     /**
      * The id of the generated HTML DOM element. If it's not given, it will be
      * generated automatically.
@@ -77,7 +77,7 @@ MilkywayUI.screen = new Class({
             $(this.id).addClass(this.base_class);
             return true;
         }
-        this.container_el.adopt(new Element(this.html_el, {
+        this.parent_el.adopt(new Element(this.viewport_el, {
             'id':           this.id,
             'html':         '<video id="movie_test" src="big_buck_bunny.ogv">your browser does not support the video tag</video>',
 //                      'html':         '<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/vV0bM6_TYvc?fs=1&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><param name="wmode" value="transparent"></param><embed src="http://www.youtube.com/v/vV0bM6_TYvc?fs=1&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="transparent" width="640" height="385"></embed></object>',

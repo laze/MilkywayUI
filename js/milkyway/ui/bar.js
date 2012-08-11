@@ -15,13 +15,12 @@
  */
 MilkywayUI.bar = new Class({
     base_class: 'ui-bar',
-    container_el: null,
-    html_el: null,
-    html_el_type: 'div',
-    id: '',
+
     position_top: 0,
     position_left: 0,
     vertical_align: 'bottom',
+
+    Extends: MilkywayUI.component,
 
     initialize: function(options) {
         this.vertical_align = options.vertical_align;
@@ -31,13 +30,13 @@ MilkywayUI.bar = new Class({
  ﻿   * Render bar.
  ﻿   */
     render: function() {
-        new Element(this.html_el, {
+        new Element(this.viewport_el, {
             'id': this.id,
             'class': this.base_class,
             'styles': {
                 'height': this.height
             }
-        }).inject(this.container_el, this.vertical_align);
+        }).inject(this.parent_el, this.vertical_align);
     }
 });
 
@@ -55,22 +54,22 @@ MilkywayUI.StatusBar = new Class({
 MilkywayUI.EventBar = new Class({
     Extends: MilkywayUI.bar,
     render: function () {
-        this.html_el = new Element(this.html_el_type, {
+        this.viewport_el = new Element(this.html_el_type, {
             'id': this.id,
             'class': this.base_class,
             'styles': {
                 'height': this.height,
-                'width': this.container_el.getSize().x,
+                'width': this.parent_el.getSize().x,
                 'top': this.position_top,
                 'left': this.position_left
             }
         });
-        this.html_el.inject(this.container_el, this.vertical_align);
-        this.html_el.adopt(new Element('div', {
+        this.viewport_el.inject(this.parent_el, this.vertical_align);
+        this.viewport_el.adopt(new Element('div', {
             'id': this.id + '-content',
             'styles': {
                 'height': this.height,
-                'width': this.container_el.getSize().x
+                'width': this.parent_el.getSize().x
             }
         }));
 
