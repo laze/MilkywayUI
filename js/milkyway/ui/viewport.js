@@ -10,9 +10,7 @@
 /**
  * The MilkywayUI's viewport class.
  *
- * @class MilkywayUI.Viewport
- * @constructor
- * @return Viewport
+ * @class MilkywayUI.viewport
  */
 MilkywayUI.viewport = new Class({
     /**
@@ -21,37 +19,37 @@ MilkywayUI.viewport = new Class({
      * for show actually handled keys.
      * @type {Array}
      */
-    bars:                   [],
+    bars: [],
     /**
      * The base CSS class to apply to this panel's element (defaults to 'x-main').
      * @type {string}
      */
-    base_class:             'ui-main',
+    base_class: 'ui-main',
     /**
      * The HTML element, where Tui will render the its viewport.
      * @type {object}
      */
-    container_el:           null,
+    parent_el: null,
     /**
      * The height of the viewport.
      * @type {Integer}
      */
-    height:                 0,
+    height: 0,
     /**
      * The width of the viewport.
      * @type {Integer}
      */
-    width:                  0,
+    width: 0,
     /**
      * The HTML element, what is the main element of the viewport.
      * @type {object}
      */
-    html_el:                null,
+    viewport_el: null,
     /**
      * The HTML element's type to generate UI's interface.
      * @type {string}
      */
-    html_el_tag:            'div',
+    viewport_tag: 'div',
     /**
      * The id of the generated HTML DOM element. If it's not given, it will be
      * generated automatically.
@@ -66,22 +64,23 @@ MilkywayUI.viewport = new Class({
 
     /**
      * Initialize the viewport.
-     * @param {Object} options The startup options of the object.
+     * @constructor
+     * @param {Object} configuration The startup configuration of the object.
      */
-    initialize: function(options) {
-        if (typeOf(options) === 'object') {
+    initialize: function(configuration) {
+        if (typeOf(configuration) === 'object') {
             /** Set up properties...
              */
-            this.setId(options.name);
-            this.setHeight(options.height);
-            this.setWidth(options.width);
-            this.setContainer(options.container);
+            this.setId(configuration.name);
+            this.setHeight(configuration.height);
+            this.setWidth(configuration.width);
+            this.setParent(configuration.container);
 
             this.generate();
         }
 //        //- bars
-//        if (typeOf(options.bars) === 'array') this.bars = options.bars;
-//        else if (typeOf(options.bars) === 'object') this.bars.push(options.bars);
+//        if (typeOf(configuration.bars) === 'array') this.bars = configuration.bars;
+//        else if (typeOf(configuration.bars) === 'object') this.bars.push(configuration.bars);
 //        else this.bars = [/*{
 //             'type':                         'dialog',
 //             'vertical_align':       'bottom'
@@ -132,20 +131,20 @@ MilkywayUI.viewport = new Class({
      * Generate the viewport.
      */
     generate: function() {
-        console.log(this.container_el);
-        if (!this.container_el.contains($(this.id))) {
-            this.html_el = new Element(this.html_el_tag, {
+        console.log(this.parent_el);
+        if (!this.parent_el.contains($(this.id))) {
+            this.viewport_el = new Element(this.viewport_tag, {
                 'id': this.id
             });
             /**
              * Adopt to the DOM tree. Container should be set previously.
              */
-            this.container_el.adopt(this.html_el);
+            this.parent_el.adopt(this.viewport_el);
         }
         /**
          * Set up viewport element properties.
          */
-        this.html_el = $(this.id).set({
+        this.viewport_el = $(this.id).set({
             'class': this.base_class,
             'styles': {
                 'height': this.height,
@@ -191,11 +190,11 @@ MilkywayUI.viewport = new Class({
      * @param {String} container Optional. The id of the container element. If no valid element id given, the container
      *                           element automatically will be replaced to document.body.
      */
-    setContainer: function(container) {
+    setParent: function(container) {
         if (typeOf(container) === 'string' && $(document.body).contains($(container))) {
-            this.container_el = $(container);
+            this.parent_el = $(container);
         } else {
-            this.container_el = $(document.body);
+            this.parent_el = $(document.body);
         }
     },
 
