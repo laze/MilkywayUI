@@ -62,7 +62,12 @@ MilkywayUI.component = new Class({
      * @param {Object} configuration The basic configuration of the component.
      */
     initialize: function(configuration) {
-
+        /**
+         * Set up properties form the given configuration object.
+         */
+        this.setId(configuration.id);
+        this.setWidth(configuration.width);
+        this.setHeight(configuration.height);
     },
 
     /**
