@@ -4,10 +4,12 @@ MilkywayUI.defineApp({
     height: 720,
     load_animation: {
         type: 'bar',
-        'verical-align': 'bottom',
-
+        'verical-align': 'bottom'
     },
-    screens: [
+    controlers: [
+        'main.js'
+    ],
+    views: [
         'main.js'
     ]
 });

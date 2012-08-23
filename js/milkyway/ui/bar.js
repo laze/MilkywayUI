@@ -13,17 +13,22 @@
  * @constructor
  * @return Bar
  */
-MilkywayUI.bar = new Class({
+MilkywayUI.ui.Bar = new Class({
     base_class: 'ui-bar',
 
     position_top: 0,
     position_left: 0,
-    vertical_align: 'bottom',
+    screen_alignment: 'bottom',
 
-    Extends: MilkywayUI.component,
+    Extends: MilkywayUI.ui.Component,
 
     initialize: function(options) {
-        this.vertical_align = options.vertical_align;
+        /**
+         * Define bar namespace for different type of other bars what are derived from this class.
+         */
+        MilkywayUI.ui.bar = {};
+
+        this.screen_alignment = options.screen_alignment;
     },
 
     /**
@@ -36,23 +41,23 @@ MilkywayUI.bar = new Class({
             'styles': {
                 'height': this.height
             }
-        }).inject(this.parent_el, this.vertical_align);
+        }).inject(this.parent_el, this.screen_alignment);
     }
 });
 
-MilkywayUI.StatusBar = new Class({
-    Extends: MilkywayUI.bar,
+MilkywayUI.ui.bar.StatusBar = new Class({
+    Extends: MilkywayUI.ui.Bar,
     initialize: function(options) {
     //﻿  ﻿  console.info('Created StatusBar');
         this.height = 30;
         //- id
 //        this.id = ($chk(options.id)) ? options.id : id.get();
-        this.vertical_align = options.vertical_align;
+        this.screen_alignment = options.screen_alignment;
     }
 });
 
-MilkywayUI.EventBar = new Class({
-    Extends: MilkywayUI.bar,
+MilkywayUI.ui.bar.EventBar = new Class({
+    Extends: MilkywayUI.ui.Bar,
     render: function () {
         this.viewport_el = new Element(this.html_el_type, {
             'id': this.id,
@@ -64,7 +69,7 @@ MilkywayUI.EventBar = new Class({
                 'left': this.position_left
             }
         });
-        this.viewport_el.inject(this.parent_el, this.vertical_align);
+        this.viewport_el.inject(this.parent_el, this.screen_alignment);
         this.viewport_el.adopt(new Element('div', {
             'id': this.id + '-content',
             'styles': {

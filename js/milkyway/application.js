@@ -1,7 +1,14 @@
 
 MilkywayUI.Application = new Class({
+    /**
+     * @type {Object} The application's viewport. The only one.
+     */
     viewport: null,
-    screens: new Hash(),
+
+    /**
+     * @type {Array} The array of the showed controller-view pairs.
+     */
+    history: new Array(),
 
     initialize: function(options) {
         /**
@@ -10,7 +17,24 @@ MilkywayUI.Application = new Class({
         if (typeOf(options.name) === 'string') {
             window[options.name] = this;
         }
+        /**
+         * Set up application's viewport.
+         * @type {MilkywayUI.ui.Viewport} The application viewport.
+         */
         this.viewport = new MilkywayUI.ui.Viewport(options);
+        if (typeOf(options.views) === 'array') {
+            options.views.each(function(item, index) {
+                if (typeOf(item) === 'string') {
+                    /**
+                     * Parse the file to object
+                     */
+                }
+                if (item.name !== undefined) {
+                    index = item.name;
+                }
+                this.setScreen(index, item);
+            });
+        }
     },
 
     /**
@@ -21,7 +45,7 @@ MilkywayUI.Application = new Class({
      * @see MilkywayUI.screen
      */
     setScreen: function(name, screen_desc) {
-        this.screens.set(name, new MilkywayUI.screen(screen_desc));
+        this.views.set(name, new MilkywayUI.screen(screen_desc));
     },
 
     /**
@@ -30,10 +54,14 @@ MilkywayUI.Application = new Class({
      * @return {Object} A screen object.
      */
     getScreen: function(name) {
-        return this.screens.get(name);
+        return this.views[name];
     },
 
     getActiveScreen: function() {
+
+    },
+
+    setController: function() {
 
     },
 

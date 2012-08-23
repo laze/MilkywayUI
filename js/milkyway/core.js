@@ -21,12 +21,20 @@
 
         /**
          * Binded events of the framework.
-         * @type {hash}
+         * @type {Object}
          */
-        events: new Hash(),
+        events: new Object(),
 
+        /**
+         * @type {Boolean} Check whether the MilkywayUI is loaded or not.
+         */
         ready: false,
-        __app: null,
+
+        /**
+         * The client application's namespace.
+         * @type {Object} The client application.
+         */
+        application: null,
 
         /**
          * Initialize the framework. Includes different parts, necessary modules, and build up the application and the
@@ -35,11 +43,20 @@
          * @return {void}
          */
         initialize: function() {
+            /**
+             * @const
+             * @type {String} SYS_PATH The root path of MilkywayUI.
+             */
             MilkywayUI.SYS_PATH = $('MilkywayUI').get('src').replace('milkyway/core.js', '');
+            /**
+             * @const
+             * @type {String} APP_PATH The root path of the client application.
+             */
             MilkywayUI.APP_PATH = $('MilkywayApp').get('src').substr(0, $('MilkywayApp').get('src').lastIndexOf('/') + 1);
 
             /** Load basically necessary components.
              */
+            MilkywayUI.require('milkyway.ui.component');
             MilkywayUI.require('milkyway.ui.viewport');
             MilkywayUI.require('milkyway.ui.bar');
             MilkywayUI.require('milkyway.ui.screen');
@@ -47,9 +64,9 @@
             /**
              * If application class included, we instantiates the application.
              */
-            MilkywayUI.require('milkyway.app', {
+            MilkywayUI.require('milkyway.application', {
                 onLoad: function() {
-                    MilkywayUI.__app = new MilkywayUI.application(MilkywayUI.__app);
+                    MilkywayUI.application = new MilkywayUI.Application(MilkywayUI._application.configuration);
                     MilkywayUI.ready = true;
 
                     MilkywayUI.render();
@@ -64,7 +81,9 @@
          */
         defineApp: function(options) {
             if (typeOf(options) === 'object') {
-                MilkywayUI.__app = options;
+                MilkywayUI._application = {
+                    configuration: options
+                };
             }
         },
 
@@ -85,7 +104,7 @@
 
         registerEventHandler: function() {
             window.addEvent('keydown', function(event) {
-                if (MilkywayUI.events.has(event.key)) MilkywayUI.events.get(event.key).handler.run(event);
+                if (MilkywayUI.events[event.key] != undefined) MilkywayUI.events[event.key].handler.run(event);
             });
         },
 
@@ -99,22 +118,25 @@
          * @return void
          */
         addEventHandler: function(key, name, handler) {
-            if (arguments[3] == true) MilkywayUI.events.set(key.toLowerCase(), {
-                'name':    name,
-                'handler': handler
-            });
-            else MilkywayUI.events.include(key.toLowerCase(), {
-                'name':    name,
-                'handler': handler
-            });
+            if (arguments[3] == true) {
+                MilkywayUI.events[key.toLowerCase()] = {
+                    'name':    name,
+                    'handler': handler
+                };
+            } else if(MilkywayUI.events[key.toLowerCase()] == undefined) {
+                MilkywayUI.events[key.toLowerCase()] = {
+                    'name':    name,
+                    'handler': handler
+                };
+            }
         },
 
         getEventKeys: function() {
-            return this.events.getKeys();
+            return Object.keys(this.events);
         },
 
         render: function() {
-            MilkywayUI.__app.render();
+            MilkywayUI.application.render();
         }
     };
 

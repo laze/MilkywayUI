@@ -14,7 +14,7 @@
  * @constructor
  * @return Screen
  */
-MilkywayUI.screen = new Class({
+MilkywayUI.ui.Screen = new Class({
     auto_render:            false,
     /**
      * The base CSS class to apply to this panel's element (defaults to 'ui-screen').

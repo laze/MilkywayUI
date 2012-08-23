@@ -1,19 +1,19 @@
 /**
- * Created with JetBrains WebStorm.
- * User: laze
- * Date: 2012.08.12.
- * Time: 0:22
- * To change this template use File | Settings | File Templates.
+ * Define the MilkywayUI.ui namespace.
+ * @author <a href="mailto:laze@laze.hu">Balazs Ercsey - laze</a>
+ * @this {MilkywayUI.ui}
  */
+MilkywayUI.ui = {
+};
 
 /**
- * The MilkywayUI.component class is the basic of all UI component, like screens, bars, buttons, etc... It handles the
+ * The MilkywayUI.ui.Component class is the basic of all UI component, like screens, bars, buttons, etc... It handles the
  * basic properties, and methods.
  * @author <a href="mailto:laze@laze.hu">Balazs Ercsey - laze</a>
  * @class
- * @this {MilkywayUI.component}
+ * @this {MilkywayUI.ui.Component}
  */
-MilkywayUI.component = new Class({
+MilkywayUI.ui.Component = new Class({
     /**
      * @type {Boolean} auto_render If true the component will be automatically rendered, if not, user should render it
      *                             manually. Automatic rendering means, that the component will be attached to the DOM

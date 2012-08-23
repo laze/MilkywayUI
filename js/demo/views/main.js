@@ -1,3 +1,3 @@
-MilkywayUI.__app.setScreen('main', {
+MilkywayUI.application.setScreen('main', {
 
 });

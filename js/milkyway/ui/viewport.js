@@ -12,7 +12,7 @@
  *
  * @class MilkywayUI.viewport
  */
-MilkywayUI.viewport = new Class({
+MilkywayUI.ui.Viewport = new Class({
     /**
      * The bars what could be shown on the viewport. Basically it has a bar
      * for communication, for confirm, alert and load messages, and another
@@ -57,10 +57,10 @@ MilkywayUI.viewport = new Class({
      */
     id:                     '',
     /**
-     * The screens of the current application.
+     * The views of the current application.
      * @type {Array}
      */
-    screens:                [],
+    views:                [],
 
     /**
      * Initialize the viewport.
@@ -105,7 +105,7 @@ MilkywayUI.viewport = new Class({
 
 //        if (this.container_el.hasChild(this.id)) $(this.id).addClass(this.base_class);
 //        else this.container_el.adopt(this.html_el);
-//        this.screens.each(function(screen) {
+//        this.views.each(function(screen) {
 //            screen.container_el = this.html_el;
 //            if (screen.auto_render) screen.render();
 //        }, this);
